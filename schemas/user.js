@@ -8,11 +8,9 @@ const userSchema = gql`
   type User {
     id: ID!
     name: String!
-    username: String!
     password: String!
     birthdate: String!
     sign: String!
-    avatar: String
     email: String!
     dateJoined: String!
   }

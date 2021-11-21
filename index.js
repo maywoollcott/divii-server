@@ -11,13 +11,8 @@ const router = require('./router');
 const ATLAS_USERNAME = process.env.ATLAS_USERNAME;
 const ATLAS_PASSWORD = process.env.ATLAS_PASSWORD;
 
-// const corsConfig = {
-//   origin: 'http://localhost:19002',
-//   credentials: true,
-// };
-
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ extend: false }));
 app.use(router);
 
 const server = new ApolloServer({
