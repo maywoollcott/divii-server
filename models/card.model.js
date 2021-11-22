@@ -11,14 +11,38 @@ const CardSchema = new Schema({
   },
   suit: {
     type: String,
+    required: true,
+  },
+  generalDescription: {
+    type: String,
+    required: true,
   },
   uprightDescription: {
     type: String,
     required: true,
   },
-  upsideDownDescription: {
+  reversedDescription: {
     type: String,
     required: true,
+  },
+  uprightKeyTerms: {
+    type: [String],
+    required: true,
+  },
+  reversedKeyTerms: {
+    type: [String],
+    required: true,
+  },
+  arcana: {
+    type: String,
+    required: true,
+  },
+  deckNumber: {
+    type: Number,
+    required: true,
+  },
+  number: {
+    type: Number,
   },
 });
 

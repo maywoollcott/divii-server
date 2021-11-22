@@ -4,7 +4,7 @@ const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const schemas = require('./schemas/index');
-const resolvers = require('./resolvers/userResolvers');
+const resolvers = require('./resolvers/index');
 
 const app = express();
 const router = require('./router');

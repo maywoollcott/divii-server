@@ -5,9 +5,15 @@ const cardSchema = gql`
     id: ID!
     name: String!
     image: String
-    suit: String
+    suit: String!
+    generalDescription: String!
     uprightDescription: String!
-    upsideDownDescription: String!
+    reversedDescription: String!
+    uprightKeyTerms: [String]!
+    reversedKeyTerms: [String]!
+    arcana: String!
+    deckNumber: Int!
+    number: Int!
   }
 `;
 
