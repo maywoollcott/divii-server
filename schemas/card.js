@@ -13,7 +13,7 @@ const cardSchema = gql`
     reversedKeyTerms: [String]!
     arcana: String!
     deckNumber: Int!
-    number: Int!
+    number: Int
   }
 `;
 

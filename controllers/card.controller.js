@@ -14,4 +14,18 @@ const createCard = async (req, res) => {
   }
 };
 
-module.exports = { createCard };
+const getCardByNumber = async (req, res) => {
+  try {
+    const { deckNumber } = req.params;
+    console.log(deckNumber);
+    const card = await Card.findOne({ deckNumber: deckNumber });
+    res.status(200).send({ card });
+  } catch (error) {
+    res.status(500).send({
+      error,
+      message: `Could not successfully fetch card. See following problems: ${error}`,
+    });
+  }
+};
+
+module.exports = { createCard, getCardByNumber };
