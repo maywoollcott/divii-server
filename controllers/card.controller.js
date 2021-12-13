@@ -28,4 +28,16 @@ const getCardByNumber = async (req, res) => {
   }
 };
 
-module.exports = { createCard, getCardByNumber };
+const getAllCards = async (req, res) => {
+  try {
+    const cards = await Card.find();
+    res.status(200).send({ cards });
+  } catch (error) {
+    res.status(500).send({
+      error,
+      message: `Could not successfully fetch card. See following problems: ${error}`,
+    });
+  }
+};
+
+module.exports = { createCard, getCardByNumber, getAllCards };

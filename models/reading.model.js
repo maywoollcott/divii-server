@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReadingSchema = new Schema({
-  timestamp: {
-    type: Date,
-    required: true,
-  },
-  name: {
+  date: {
     type: String,
     required: true,
   },
@@ -20,12 +16,16 @@ const ReadingSchema = new Schema({
   },
   cards: [
     {
-      type: String,
+      deckNumber: {
+        type: Number,
+        required: true,
+      },
+      upright: {
+        type: Boolean,
+        required: true,
+      },
     },
   ],
-  description: {
-    type: String,
-  },
 });
 
-module.exports = mongoose.model('User', ReadingSchema);
+module.exports = mongoose.model('Reading', ReadingSchema);
