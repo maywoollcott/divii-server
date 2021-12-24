@@ -10,6 +10,7 @@ const app = express();
 const router = require('./router');
 const ATLAS_USERNAME = process.env.ATLAS_USERNAME;
 const ATLAS_PASSWORD = process.env.ATLAS_PASSWORD;
+const PORT = process.env.PORT || 3002;
 
 app.use(cors());
 app.use(express.json({ extend: false }));
@@ -34,4 +35,4 @@ mongoose.connect(
   }
 );
 
-app.listen(3002, () => console.log(`Server is running on port 3002! ${process.env.ATLAS_PASSWORD}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}! ${process.env.ATLAS_PASSWORD}`));
