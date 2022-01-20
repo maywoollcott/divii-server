@@ -37,22 +37,21 @@ const logInUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let user;
-    user = await User.findOne({ email: email });
+    let user = await User.findOne({ email: email });
     if (!user) {
-      res.status(400).send('no user');
+      return res.status(400).send({ message: 'no user' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      res
+      return res
         .status(400)
         .json({ errors: [{ msg: 'Invalid password. Please try again.' }] });
     }
 
     const authToken = jwt.sign(user.id, JWT_SECRET);
-    res.status(200).send({ user, authToken });
+    return res.status(200).send({ user, authToken });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('No user found for that email.');
