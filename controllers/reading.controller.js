@@ -16,6 +16,7 @@ const createReading = async (req, res) => {
 
 const getReadingsById = async (req, res) => {
   try {
+    console.log('getting readings');
     const { id } = req.params;
     console.log(id);
     const readings = await Reading.find({ userId: id });

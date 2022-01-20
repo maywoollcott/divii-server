@@ -34,27 +34,28 @@ const createUser = async (req, res) => {
 
 //login user with token
 const logInUser = async (req, res) => {
+  console.log('trying to log in');
   const { email, password } = req.body;
-
   try {
     let user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(400).send({ message: 'no user' });
+      return res
+        .status(400)
+        .send('No user found for that email. Please register.');
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Invalid password. Please try again.' }] });
+      return res.status(400).send('Incorrect password. Please try again.');
     }
 
     const authToken = jwt.sign(user.id, JWT_SECRET);
     return res.status(200).send({ user, authToken });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('No user found for that email.');
+    res
+      .status(500)
+      .send('Server error. Please check your internet connection.');
   }
 };
 
