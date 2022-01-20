@@ -37,26 +37,25 @@ const logInUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email: email });
+    let user;
+    user = await User.findOne({ email: email });
     if (!user) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'User does not exist.' }] });
+      res.status(400).json({ errors: [{ msg: 'User does not exist.' }] });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res
+      res
         .status(400)
-        .json({ errors: [{ msg: 'Invalid credentials.' }] });
+        .json({ errors: [{ msg: 'Invalid password. Please try again.' }] });
     }
 
     const authToken = jwt.sign(user.id, JWT_SECRET);
     res.status(200).send({ user, authToken });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('No user found for that email.');
   }
 };
 
