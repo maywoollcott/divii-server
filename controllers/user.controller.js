@@ -55,7 +55,7 @@ const logInUser = async (req, res) => {
     res.status(200).send({ user, authToken });
   } catch (err) {
     console.error(err.message);
-    return res.status(500).send('No user found for that email.');
+    res.status(500).send('No user found for that email.');
   }
 };
 
