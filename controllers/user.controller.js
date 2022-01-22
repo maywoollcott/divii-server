@@ -40,7 +40,7 @@ const logInUser = async (req, res) => {
     let user = await User.findOne({ email: email });
     if (!user) {
       return res
-        .status(400)
+        .status(409)
         .send('No user found for that email. Please register.');
     }
 
