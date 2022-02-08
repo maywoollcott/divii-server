@@ -6,7 +6,6 @@ require('dotenv').config();
 
 //register user and get token
 const createUser = async (req, res) => {
-  console.log(req.body);
   const existingUser = await User.findOne({ email: req.body.email });
   if (existingUser) {
     return res.status(409).send({
@@ -34,7 +33,6 @@ const createUser = async (req, res) => {
 
 //login user with token
 const logInUser = async (req, res) => {
-  console.log('trying to log in');
   const { email, password } = req.body;
   try {
     let user = await User.findOne({ email: email });
@@ -59,4 +57,24 @@ const logInUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, logInUser };
+const getUserByToken = async (req, res) => {
+  const { token } = req.body;
+
+  const tokenId = jwt.verify(token, JWT_SECRET);
+  try {
+    let user = await User.findOne({ _id: tokenId });
+    if (!user) {
+      return res
+        .status(409)
+        .send('Cannot find user. Please try logging in again.');
+    }
+
+    return res.status(200).send({ user });
+  } catch (err) {
+    res
+      .status(500)
+      .send('Server error. Please check your internet connection.');
+  }
+};
+
+module.exports = { createUser, logInUser, getUserByToken };
