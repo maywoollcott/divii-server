@@ -8,26 +8,24 @@ require('dotenv').config();
 const createUser = async (req, res) => {
   const existingUser = await User.findOne({ email: req.body.email });
   if (existingUser) {
-    return res.status(409).send({
-      message:
-        'That email is already in use. Please sign in instead of registering.',
-    });
+    return res
+      .status(409)
+      .send(
+        'That email is already in use. Please sign in instead of registering.'
+      );
   }
 
   try {
     const hashed = await bcrypt.hash(req.body.password, 15);
-    const user = new User({
+    const newUser = new User({
       ...req.body,
       password: hashed,
     });
-    const { id } = await user.save();
-    const authToken = jwt.sign({ id }, JWT_SECRET);
-    res.status(200).send({ user, authToken });
+    const user = await newUser.save();
+    const authToken = jwt.sign(user.id, JWT_SECRET);
+    return res.status(200).send({ user, authToken });
   } catch (error) {
-    res.status(500).send({
-      error,
-      message: `Could not successfully create user. See following problems: ${error}`,
-    });
+    res.status(500).send('Server error. Please check your internet connection');
   }
 };
 
