@@ -6,6 +6,7 @@ const readingController = require('./controllers/reading.controller');
 
 router.post('/register', userController.createUser);
 router.post('/login', userController.logInUser);
+router.post('/updateuser', userController.updateUser);
 router.post('/card', cardController.createCard);
 router.get('/cards', cardController.getAllCards);
 router.get('/cardbynumber:deckNumber', cardController.getCardByNumber);
