@@ -14,6 +14,10 @@ const ReadingSchema = new Schema({
     type: String,
     required: true,
   },
+  spreadNumber: {
+    type: String,
+    required: true,
+  },
   cards: [
     {
       deckNumber: {
