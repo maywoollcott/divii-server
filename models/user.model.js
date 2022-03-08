@@ -27,7 +27,6 @@ const UserSchema = new Schema({
   },
   personalCard: {
     type: String,
-    required: true,
   },
 });
 
