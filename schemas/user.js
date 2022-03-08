@@ -9,6 +9,7 @@ const userSchema = gql`
     sign: String!
     email: String!
     dateJoined: String!
+    personalCard: Number!
   }
 `;
 

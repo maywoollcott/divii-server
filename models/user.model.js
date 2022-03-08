@@ -25,6 +25,10 @@ const UserSchema = new Schema({
   dateJoined: {
     type: Date,
   },
+  personalCard: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
