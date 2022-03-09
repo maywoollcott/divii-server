@@ -11,6 +11,7 @@ const userSchema = gql`
     dateJoined: String!
     personalCard: String!
     personalNumber: String!
+    personalCardBack: String!
   }
 `;
 
