@@ -28,6 +28,9 @@ const UserSchema = new Schema({
   personalCard: {
     type: String,
   },
+  personalNumber: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);

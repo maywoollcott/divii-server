@@ -10,6 +10,7 @@ const userSchema = gql`
     email: String!
     dateJoined: String!
     personalCard: String!
+    personalNumber: String!
   }
 `;
 
