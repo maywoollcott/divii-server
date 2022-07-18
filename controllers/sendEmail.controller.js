@@ -11,41 +11,39 @@ const sendResetEmail = async (req, res) => {
 
   const existingUser = await User.findOne({ email: email });
 
-  console.log(existingUser);
-
   if (!existingUser) {
     return res
       .status(409)
       .send('That email is not connected to a user. Please try again.');
   }
 
-  const request = mailjet.post('send', { version: 'v3.1' }).request({
-    Messages: [
-      {
-        From: {
-          Email: 'may@diviitarot.com',
-          Name: 'May at Divii',
-        },
-        To: [
+  if (existingUser) {
+    try {
+      mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
           {
-            Email: existingUser.email,
-            Name: existingUser.name,
+            From: {
+              Email: 'may@diviitarot.com',
+              Name: 'May at Divii',
+            },
+            To: [
+              {
+                Email: existingUser.email,
+                Name: existingUser.name,
+              },
+            ],
+            Subject: 'Your Divii reset code',
+            TextPart: code,
+            HTMLPart: `<h3>${code}</h3><br />Hi, ${existingUser.name}! Use this code to reset your password within the app.`,
           },
         ],
-        Subject: 'Your Divii reset code',
-        TextPart: code,
-        HTMLPart: `<h3>${code}</h3><br />Hi, ${existingUser.name}! Use this code to reset your password within the app.`,
-      },
-    ],
-  });
-  request
-    .then(() => {
+      });
+
       return res.status(200).send();
-    })
-    .catch((err) => {
-      console.log(err.statusCode);
-      return res.status(500);
-    });
+    } catch (error) {
+      return res.status(500).send();
+    }
+  }
 };
 
 module.exports = { sendResetEmail };
